@@ -46,17 +46,28 @@ db.restaurants.count();
 //   "grades.grade":[{$sort: { "grades.grade": -1 }}]
 // });
 
-db.restaurants.find({
-  grades: { $ne: [] }, 
-  "grades.score": { $gt: 0 }
- },
-{name:1,
-"grades.score": 1
-}).
- sort({ "grades.score": 1 }).
- limit(5).
- pretty();
+// db.restaurants.find({
+//   grades: { $ne: [] }, 
+//   "grades.score": { $ne: 0, $eq: 2}
+//  },
+// {name: true,
+// "grades.score": true
+// }).
+//  sort({ "grades.score": 1 }).
+//  limit(5).
+//  pretty();
 
+// db.restaurants.find({
+//   grades: {
+//     $elemMatch: { score: { $gt: 0 } }
+//   }
+// }, {"grades.score": 1}).sort({"grades.score": 1}).limit(5).pretty();
+
+// db.restaurants.find({
+//   grades: {
+//     $elemMatch: { score: { $gt: 0 } }
+//   }
+// }).sort({"grades.score": 1}).pretty();
 
 // Find the restaurants which have only been graded A.
 
