@@ -70,8 +70,19 @@ db.restaurants.count();
 // }).sort({"grades.score": 1}).pretty();
 
 // Find the restaurants which have only been graded A.
+const gradeOptions = db.restaurants.distinct("grades.grade");
+gradeOptions;
 
-// db.restaurants.find({
-//  "grades.grade": {$nin: ["B", "C", "D", "F", null]}
-// }).pretty();
+const badGrades = gradeOptions.filter(opt => opt !== "A");
+badGrades;
+
+db.restaurants.count({
+ "grades.grade": {$nin: badGrades}
+});
+
+db.restaurants.find({
+  "grades.grade": {$nin: ["B", "C", "D", "Not Yet Graded"]}
+}).pretty();
+
+db.restaurants.find({ grades: { $not: { $elemMatch: { grade: { $nin: ["A"] } } } } });
 
